@@ -1,6 +1,7 @@
 # Letsfreckle::Client
 
-TODO: Write a gem description
+I needed a way to easiliy access the new V2 api of Letsfreckle.com.
+There are some projects that cover v1 partly.
 
 ## Installation
 
