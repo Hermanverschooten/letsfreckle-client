@@ -1,4 +1,4 @@
-require './lib/letsfreckle/client'
+require 'spec_helper'
 
 describe Letsfreckle::Client do
   it 'initializes' do
