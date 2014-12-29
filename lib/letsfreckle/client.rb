@@ -9,7 +9,7 @@ module Letsfreckle
     extend self
     include HTTParty
 
-    debug_output $stderr
+#    debug_output $stderr
 
     attr_reader :configuration
 
