@@ -85,5 +85,13 @@ describe Letsfreckle::Client::Entry do
       expect(entry.save).to eql(true)
       expect(entry.id).to be > 0
     end
+    it 'updates an existing entry' do
+      entry = Letsfreckle::Client::Entry.find_by(nil).first
+      description = entry.description + Time.now.to_i.to_s
+      entry_id = entry.id
+      entry.description = description
+      expect(entry.save).to eql(true)
+      expect(Letsfreckle::Client::Entry.find(entry_id).description).to eql(description)
+    end
   end
 end

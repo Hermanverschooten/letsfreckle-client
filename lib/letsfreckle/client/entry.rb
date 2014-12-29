@@ -55,7 +55,13 @@ module Letsfreckle
       end
 
       def save
-        response = Letsfreckle::Client::write("/entries", self.to_params)
+        binding.pry
+        if self.id
+          response = Letsfreckle::Client::update("/entries/#{id}", self.to_params)
+        else
+          @created_at = Date.today.strftime
+          response = Letsfreckle::Client::write("/entries", self.to_params)
+        end
         if response.success?
           self.load(response)
           return true
@@ -66,7 +72,7 @@ module Letsfreckle
       def to_params
         params_hash = {
           user_id: user_id,
-          date: Date.today.strftime,
+          date: created_at,
           minutes: minutes,
           description: description,
           project_id: project_id,
