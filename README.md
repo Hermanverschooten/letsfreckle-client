@@ -21,7 +21,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Before using any of the API functions you need to set up the configuration
+
+```ruby
+Letsfreckle::Client.configure do
+  token 'your v2 api token from letsfreckle'
+  name 'this will be sent as the user-agent'
+end
+```
 
 ## Contributing
 
