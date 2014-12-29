@@ -13,6 +13,7 @@ module Letsfreckle
         hash.each do |k,v|
           instance_variable_set("@#{k}".to_sym, v)
         end
+        self
       end
 
       def self.find(id)

@@ -55,5 +55,15 @@ module Letsfreckle
         }
       )
     end
+    def destroy(command, options={})
+      response = delete(
+        command,
+        query: options,
+        headers: {
+          'User-Agent'  => configuration.name,
+          'X-FreckleToken'  => configuration.token
+        }
+      )
+    end
   end
 end

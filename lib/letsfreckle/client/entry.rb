@@ -17,6 +17,7 @@ module Letsfreckle
         hash.each do |k,v|
           instance_variable_set("@#{k}".to_sym, v)
         end
+        self
       end
 
       def self.find(id)
@@ -55,7 +56,6 @@ module Letsfreckle
       end
 
       def save
-        binding.pry
         if self.id
           response = Letsfreckle::Client::update("/entries/#{id}", self.to_params)
         else
@@ -67,6 +67,11 @@ module Letsfreckle
           return true
         end
         false
+      end
+
+      def delete
+        response = Letsfreckle::Client::destroy("/entries/#{id}")
+        response.success?
       end
 
       def to_params

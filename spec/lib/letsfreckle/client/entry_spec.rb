@@ -43,7 +43,7 @@ describe Letsfreckle::Client::Entry do
     subject.load(json_hash)
     expect(subject.to_params).to eql(
       {
-        date: Date.today.strftime,
+        date: subject.created_at,
         user_id: 5543,
         minutes: 60,
         project_id: 8475,
@@ -86,12 +86,18 @@ describe Letsfreckle::Client::Entry do
       expect(entry.id).to be > 0
     end
     it 'updates an existing entry' do
-      entry = Letsfreckle::Client::Entry.find_by(nil).first
+      entry = Letsfreckle::Client::Entry.new
+      entry.user_id = 5543
+      entry.minutes = 60
+      entry.description = "#support test"
+      entry.project_id = 8475
+      expect(entry.save).to eql(true)
       description = entry.description + Time.now.to_i.to_s
       entry_id = entry.id
       entry.description = description
       expect(entry.save).to eql(true)
       expect(Letsfreckle::Client::Entry.find(entry_id).description).to eql(description)
+      expect(entry.delete).to eql(true)
     end
   end
 end
