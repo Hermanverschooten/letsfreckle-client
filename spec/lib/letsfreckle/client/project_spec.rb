@@ -48,5 +48,15 @@ describe Letsfreckle::Client::Project do
     it 'returns an empty array if no projects match' do
       expect(subject.class.find_by(name: 'some probably non-existing project name')).to eql([])
     end
+    context 'find_entries' do
+      let(:project) { subject.class.find(8475) }
+      it 'has entries' do
+        expect(project.find_entries).to be_an Array
+        expect(project.find_entries.first).to be_an Letsfreckle::Client::Entry
+      end
+      it 'reload on true' do
+        expect(project.find_entries(true)).to be_an Array
+      end
+    end
   end
 end

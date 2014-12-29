@@ -1,12 +1,15 @@
 require "letsfreckle/client/version"
 require "letsfreckle/client/configuration"
 require "letsfreckle/client/project"
+require "letsfreckle/client/entry"
 require "httparty"
 
 module Letsfreckle
   module Client
     extend self
     include HTTParty
+
+    debug_output $stderr
 
     attr_reader :configuration
 
@@ -28,13 +31,27 @@ module Letsfreckle
         }
       )
     end
-    def write(command, options={})
+    def write(command, body, options={})
       response = post(
         command,
+        body: body.to_json,
         query: options,
         headers: {
           'User-Agent'  => configuration.name,
-          'X-FreckleToken'  => configuration.token
+          'X-FreckleToken'  => configuration.token,
+          'Content-Type' => 'application/json'
+        }
+      )
+    end
+    def update(command, body, options={})
+      response = put(
+        command,
+        body: body.to_json,
+        query: options,
+        headers: {
+          'User-Agent'  => configuration.name,
+          'X-FreckleToken'  => configuration.token,
+          'Content-Type' => 'application/json'
         }
       )
     end

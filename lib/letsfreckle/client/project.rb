@@ -40,6 +40,13 @@ module Letsfreckle
           []
         end
       end
+
+      def find_entries(reload = false)
+        if reload
+          @entries_list = nil
+        end
+        @entries_list ||= Entry.find_by(project_ids: @id)
+      end
     end
   end
 end
