@@ -3,7 +3,7 @@ module Letsfreckle
     class NoEntry;end
     class Entry
       attr_reader :invoice, :updated_at, :created_at, :invoiced_at,
-        :id, :invoiced, :billable, :tags
+        :id, :invoiced, :billable, :tags, :date
       attr_accessor :user_id, :minutes, :description, :project_id,
         :source_url
 
@@ -60,6 +60,7 @@ module Letsfreckle
           response = Letsfreckle::Client::update("/entries/#{id}", self.to_params)
         else
           @created_at = Date.today.strftime
+          @date ||= Date.today
           response = Letsfreckle::Client::write("/entries", self.to_params)
         end
         if response.success?
@@ -77,7 +78,7 @@ module Letsfreckle
       def to_params
         params_hash = {
           user_id: user_id,
-          date: created_at,
+          date: date,
           minutes: minutes,
           description: description,
           project_id: project_id,

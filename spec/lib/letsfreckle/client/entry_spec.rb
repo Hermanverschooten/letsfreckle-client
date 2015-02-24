@@ -43,7 +43,7 @@ describe Letsfreckle::Client::Entry do
     subject.load(json_hash)
     expect(subject.to_params).to eql(
       {
-        date: subject.created_at,
+        date: "2014-04-04",
         user_id: 5543,
         minutes: 60,
         project_id: 8475,
